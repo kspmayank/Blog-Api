@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      skip_before_filter  :verify_authenticity_token
       respond_to :json
       
       def index
@@ -12,11 +13,11 @@ module Api
       end
       
       def create
-        respond_with User.create(params[:product])
+        respond_with User.create(name: params[:name], mobileno: params[:mobileno])
       end
       
       def update
-        respond_with User.update(params[:id], params[:products])
+        respond_with User.update(params[:id], name: params[:name], mobileno: params[:mobileno])
       end
       
       def destroy
